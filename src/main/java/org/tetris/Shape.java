@@ -35,170 +35,55 @@ public class Shape {
         switch (type) {
             case O_SHAPE:
                 blocks = new boolean[][]{
-                        { // 0° rotation
-                            true, true,
-                            true, true
-                        },
-                        { // 90° rotation
-                            true, true,
-                            true, true
-                        },
-                        { // 180° rotation
-                            true, true,
-                            true, true
-                        },
-                        { // 270° rotation
-                            true, true,
-                            true, true
-                        }
+                        { true, true},
+                        {true, true},
                 };
                 break;
             case I_SHAPE:
                 blocks = new boolean[][]{
-                        { // 0° rotation
-                            false, false, false, false,
-                            false, false, false, false,
-                            true, true, true, true,
-                            false, false, false, false
-                        },
-                        { // 90° rotation
-                            false, true, false, false,
-                            false, true, false, false,
-                            false, true, false, false,
-                            false, true, false, false
-                        },
-                        { // 180° rotation
-                            false, false, false, false,
-                            true, true, true, true,
-                            false, false, false, false,
-                            false, false, false, false
-                        },
-                        { // 270° rotation
-                            false, false, true, false,
-                            false, false, true, false,
-                            false, false, true, false,
-                            false, false, true, false
-                        }
+                        // 0° rotation
+                        {false, false, false, false},
+                        {false, false, false, false},
+                        {true, true, true, true},
+                        {false, false, false, false},
                 };
                 break;
             case L_SHAPE:
-                blocks = new boolean[][]{
+                blocks = new boolean[][]
                     { // 0° rotation
-                        false, true, false,
-                        false, true, false,
-                        false, true, true
-                    },
-                    { // 90° rotation
-                        false, false, true,
-                        true, true, true,
-                        false, false, false
-                    },
-                    { // 180° rotation
-                        true, true, false,
-                        false, true, false,
-                        false, true, false
-                    },
-                    { // 270° rotation
-                        false, false, false,
-                        true, true, true,
-                        true, false, false
-                    }
+                            {false, true, false},
+                            {false, true, false},
+                            {false, true, true}
                 };
                 break;
             case J_SHAPE:
                 blocks = new boolean[][]{
-                    { // 0° rotation
-                        false, true, false,
-                        false, true, false,
-                        true, true, false
-                    },
-                    { // 90° rotation
-                        false, false, false,
-                        true, true, true,
-                        false, false, true
-                    },
-                    { // 180° rotation
-                        false, true, true,
-                        false, true, false,
-                        false, true, false
-                    },
-                    { // 270° rotation
-                        true, false, false,
-                        true, true, true,
-                        false, false, false
-                    }
+                    { false, true, false},
+                    { false, true, false},
+                    {true, true, false},
                 };
                 break;
             case S_SHAPE:
                 blocks = new boolean[][] {
-                    { // 0° rotation
-                        true, false, false,
-                        true, true, false,
-                        false, true, false
-                    },
-                    { // 90° rotation
-                        false, true, true,
-                        true, true, false,
-                        false, false, false
-                    },
-                    { // 180° rotation
-                        false, true, false,
-                        false, true, true,
-                        false, false, true
-                    },
-                    { // 270° rotation
-                        false, true, false,
-                        false, true, true,
-                        true, true, false
-                    },
+                     // 0° rotation
+                    {true, false, false},
+                    {true, true, false},
+                    {false, true, false},
                 };
                 break;
             case Z_SHAPE:
                 blocks = new boolean[][] {
-                    { // 0° rotation
-                        false, true, false,
-                        true, true, false,
-                        true, true, false
-                    },
-                    { // 90° rotation
-                        true, true, false,
-                        false, true, true,
-                        false, false, false
-                    },
-                    { // 180° rotation
-                        false, false, true,
-                        false, true, true,
-                        false, true, false
-                    },
-                    { // 270° rotation
-                        true, false, false,
-                        true, true, false,
-                        false, true, true
-                    }
+                     // 0° rotation
+                    {false, true, false},
+                    {true, true, false},
+                    {true, false, false},
                 };
                 break;
             case T_SHAPE:
                 blocks = new boolean[][] {
-                    { // 0° rotation
-                        false, true, false,
-                        false, true, true,
-                        false, true, false
-                    },
-                    { // 90° rotation
-                        false, false, false,
-                        true, true, true,
-                        false, true, false
-                    },
-                    {  // 180° rotation
-                        false, true, false,
-                        true, true, false,
-                        false, true, false
-                    },
-                    {  // 270° rotation
-                        false, true, false,
-                        true, true, true,
-                        false, false, false
-                    },
+                    {false, true, false},
+                    {false, true, true},
+                    {false, true, false},
                 };
                 break;
         }
@@ -216,24 +101,52 @@ public class Shape {
     public Color getColor() {
         return color;
     }
-    public void getRotationsCount() {
-
+    public boolean[][] getBlocks() {
+        return blocks;
     }
 
     public void rotateClockwise() {
-        boolean[][] rotateNinetyDegrees = new boolean[getWidth()][getHeight()];
-        for (int i = 0; i < getWidth(); i++) {
-            for (int j = 0; j < getHeight(); j++) {
-                rotateNinetyDegrees[i][j] = blocks[getHeight() - j - 1][i];
+        int height = this.getHeight();
+        int width = this.getWidth();
+
+        // Transpose and find the symmetrical reflection in place
+        for (int i = 0; i < height; i++) {
+            for (int j = i + 1; j < width; j++) {
+                boolean temp = blocks[i][j];
+                blocks[i][j] = blocks[j][i];
+                blocks[j][i] = temp;
+            }
+        }
+
+        // Reverse each row to achieve 90° rotation
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width / 2; j++) {
+                boolean temp = blocks[i][j];
+                blocks[i][j] = blocks[i][width - 1 - j];
+                blocks[i][width - 1 - j] = temp;
             }
         }
     }
 
     public void rotateCounterClockwise() {
-        boolean[][] rotateNinetyDegrees = new boolean[getWidth()][getHeight()];
-        for (int i = 0; i < getWidth(); i++) {
-            for (int j = 0; j < getHeight(); j++) {
-                rotateNinetyDegrees[i][j] = blocks[i][getHeight() - j - 1];
+        int height = this.getHeight();
+        int width = this.getWidth();
+
+        // Reverse each row to achieve 90° rotation
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width / 2; j++) {
+                boolean temp = blocks[i][j];
+                blocks[i][j] = blocks[i][width - 1 - j];
+                blocks[i][width - 1 - j] = temp;
+            }
+        }
+
+        // Transpose and find the symmetrical reflection in place
+        for (int i = 0; i < height; i++) {
+            for (int j = i + 1; j < width; j++) {
+                boolean temp = blocks[i][j];
+                blocks[i][j] = blocks[j][i];
+                blocks[j][i] = temp;
             }
         }
     }

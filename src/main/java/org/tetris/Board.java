@@ -1,14 +1,16 @@
 package org.tetris;
 
-public class Board {
+import javax.swing.*;
+
+public class Board extends JPanel {
 
       private Cell[][] cells;
 
     private static int width, height; // board dimensions
-    public static int getWidth() {
+    public static int getBoardWidth() {
         return width;
     }
-    public static int getHeight() {
+    public static int getBoardHeight() {
         return height;
     }
     public void clearLines() {
@@ -19,7 +21,7 @@ public class Board {
     }
 
     public boolean isGameOver() {
-
+        return true;
     }
 
     public void removeLine(int line) {
