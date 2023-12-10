@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class Shape {
     private boolean[][] blocks;
-    private Color color;
+    private final Color color;
     private int dimension;
-    private ShapeType type;
+    private final ShapeType type;
 
     // not all tetromineos have the same width!
     public Shape(ShapeType type, Color color) {
@@ -25,7 +25,7 @@ public class Shape {
 
     private void initShape(ShapeType type) {
         blocks = getBlocksForType(type);
-        dimension = blocks.length;
+        dimension = blocks[0].length;
     }
 
     public ShapeType getType() {
@@ -159,12 +159,8 @@ public class Shape {
             }
         }
     }
-     /*
-        Check if a block is present at the specified position within the cell.**
-        @param x The x-coordinate within the cell.
-        @param y The y-coordinate within the cell.
-        @return True if a block is present at the specified position, false otherwise.
-     */
+
+
     public boolean getBlockAt(int x, int y) {
         if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
             return blocks[x][y];

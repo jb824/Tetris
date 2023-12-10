@@ -23,7 +23,7 @@ public class TetrisKeyAdapter extends KeyAdapter {
                 tetris.getCurrentPiece().moveDown();
                 break;
             case KeyEvent.VK_UP:
-                tetris.getCurrentPiece().getShape().rotateClockwise();
+                tetris.getCurrentPiece().getShape().rotateCounterClockwise();
                 break;
         }
     }

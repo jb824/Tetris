@@ -10,6 +10,7 @@ public class Tetris extends JFrame {
     private Board board;
     private int score;
     private Timer timer;
+    private boolean tetrominoLanded = false;
     public Tetris() {
         initUI();
         startGame();
@@ -31,7 +32,6 @@ public class Tetris extends JFrame {
     }
 
     JLabel getStatusBar() {
-
         return statusbar;
     }
 
@@ -42,51 +42,32 @@ public class Tetris extends JFrame {
         board = new Board(this);
         add(board);
 
-        // Set a new random shape
-        setRandomShape();
-        currentPiece.setX(initialX);
-        currentPiece.setY(initialY);
+        // Set new random shape
+        getRandomShape();
+        currentPiece.setColumns(initialX);
+        currentPiece.setRows(initialY);
 
-        // Create a timer for the game loop
-        Timer gameTimer = new Timer(500, e -> {
+        Timer timer = new Timer(500, e -> {
             // Move the piece down until it reaches the bottom or collides
-            if (currentPiece.getY() < Board.getBoardHeight() - Board.getHiddenRows() && !board.checkCollision()) {
+            if (currentPiece.getRows() < Board.getBoardHeight() - Board.getHiddenRows()) {
                 currentPiece.moveDown();
                 board.repaint();
             } else {
-                // Lock the Tetromino in place
-                board.lockTetromino();
-
-                // Check for completed lines and remove them
-                // board.removeLines();
-
-                // Set a new random shape
-                setRandomShape();
-                currentPiece.setX(initialX);
-                currentPiece.setY(initialY);
+                // fix tetromino in place
+                board.lockTetromino(currentPiece);
 
                 // Repaint the board
                 board.repaint();
             }
-
-//            // Check for game over
-//            if (board.isGameOver()) {
-//                // Stop the timer and handle game over logic
-//                gameTimer.stop();
-//                // Game over logic goes here
-//            }
-
         });
 
-        // Start the game timer
-        gameTimer.start();
+        timer.start();
     }
 
     public Tetromino getCurrentPiece() {
         return currentPiece;
     }
-    public void setRandomShape() {
-
+    public void getRandomShape() {
         Random random = new Random();
         int newTetromino = Math.abs(random.nextInt()) % 7 + 1;
         int randomRotationState = Math.abs(random.nextInt()) % 4 + 1;
@@ -96,11 +77,11 @@ public class Tetris extends JFrame {
             case 1:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.L_SHAPE,
-                        new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(204, 204, 102)),
+                        new Color(204, 204, 102),
                         randomRotationState,
-                        getX(),
-                        getY()
+                        Board.getBoardWidth() / 2,
+                        0
                 ); break;
             case 2:
                 currentPiece = new Tetromino(
@@ -114,8 +95,8 @@ public class Tetris extends JFrame {
             case 3:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.I_SHAPE,
-                        new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(102, 204, 204)),
+                        new Color(102, 204, 204),
                         randomRotationState,
                         getX(),
                         getY()
@@ -123,8 +104,8 @@ public class Tetris extends JFrame {
             case 4:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.O_SHAPE,
-                        new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(218, 170, 0)),
+                        new Color(218, 170, 0),
                         randomRotationState,
                         getX(),
                         getY()
@@ -132,8 +113,8 @@ public class Tetris extends JFrame {
             case 5:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.S_SHAPE,
-                                new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(102, 204, 102)),
+                        new Color(102, 204, 102),
                         randomRotationState,
                         getX(),
                         getY()
@@ -141,8 +122,8 @@ public class Tetris extends JFrame {
             case 6:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.Z_SHAPE,
-                        new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(204, 102, 204)),
+                        new Color(204, 102, 204),
                         randomRotationState,
                         getX(),
                         getY()
@@ -150,14 +131,13 @@ public class Tetris extends JFrame {
             case 7:
                 currentPiece = new Tetromino(
                         new Shape(Shape.ShapeType.T_SHAPE,
-                        new Color(204, 102, 102)),
-                        new Color(204, 102, 102),
+                        new Color(102, 102, 204)),
+                        new Color(102, 102, 204),
                         randomRotationState,
                         getX(),
                         getY()
                 ); break;
         }
-
     }
 
     public static void main(String[] args) {

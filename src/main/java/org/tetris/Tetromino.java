@@ -5,16 +5,18 @@ import java.util.Random;
 public class Tetromino {
     private Shape shape;
     private int rotationState;
-    private int x;
-    private int y;
+    private int columns;
+    private int rows;
     private Color color;
+    private Tetromino tetromino;
 
-    public Tetromino(Shape shape, Color color, int rotationState, int x, int y) {
+    public Tetromino() {}
+    public Tetromino(Shape shape, Color color, int rotationState, int columns, int rows) {
         this.shape = shape;
         this.color = color;
         this.rotationState = rotationState;
-        this.x = 0; // initial column
-        this.y = 0; // initial row
+        this.columns = columns; // initial column
+        this.rows = rows; // initial row
     }
     public int getWidth() {
         return shape.getWidth();
@@ -35,32 +37,33 @@ public class Tetromino {
 
     // TODO: add boundaries to prevent tetrominoes from falling off board
     public void moveLeft() {
-        x--;
+        columns--;
     }
     // TODO: add boundaries to prevent tetrominoes from falling off board
     public void moveRight() {
-        x++;
+        columns++;
     }
     // TODO: add boundaries to prevent tetrominoes from falling off board
     public void moveDown() {
-        if (y < Board.getBoardHeight() - 1) {
-            y++;
+        if (rows < Board.getBoardHeight() - 1) {
+            rows++;
         }
     }
 
     public Shape getShape() {
         return shape;
     }
-    public int getX() {
-        return x;
+    public int getColumns() {
+        return columns;
     }
-    public int getY() {
-        return y;
+    public int getRows() {
+        return rows;
     }
-    public void setX(int x) {
-        this.x = x;
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
-    public void setY(int y) {
-        this.y = y;
+    public void setRows(int rows) {
+        this.rows = rows;
     }
+
 }

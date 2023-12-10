@@ -7,7 +7,6 @@ public class Cell {
     private Color color;
 
     public Cell() {
-
     }
     public Cell(boolean occupied, Color color) {
         this.occupied = occupied;
@@ -27,7 +26,7 @@ public class Cell {
         this.color = color;
     }
 
-    private void setOccupied(boolean occupied) {
+   public void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
 

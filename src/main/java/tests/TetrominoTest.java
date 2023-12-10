@@ -32,7 +32,7 @@ public class TetrominoTest {
         for (int i = 0; i > leftFourCells; i--) {
             tetrominoJ.moveLeft();
         }
-        assertEquals(leftFourCells, tetrominoJ.getX());
+        assertEquals(leftFourCells, tetrominoJ.getColumns());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TetrominoTest {
         for (int i = 0; i < rightFourCells; i++) {
             tetrominoJ.moveRight();
         }
-        assertEquals(rightFourCells, tetrominoJ.getX());
+        assertEquals(rightFourCells, tetrominoJ.getColumns());
     }
 
     @Test
@@ -56,6 +56,6 @@ public class TetrominoTest {
         for (int i = 0; i < downTwenty; i++) {
             tetrominoJ.moveDown();
         }
-        assertEquals(downTwenty, tetrominoJ.getY());
+        assertEquals(downTwenty, tetrominoJ.getRows());
     }
 }
