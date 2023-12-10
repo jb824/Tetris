@@ -1,11 +1,17 @@
 package org.tetris;
+import java.awt.*;
+import java.util.Random;
 
 public class Tetromino {
     private Shape shape;
-    private int rotationState, x, y;
+    private int rotationState;
+    private int x;
+    private int y;
+    private Color color;
 
-    public Tetromino(Shape shape, int rotationState, int x, int y) {
+    public Tetromino(Shape shape, Color color, int rotationState, int x, int y) {
         this.shape = shape;
+        this.color = color;
         this.rotationState = rotationState;
         this.x = 0; // initial column
         this.y = 0; // initial row
@@ -37,8 +43,11 @@ public class Tetromino {
     }
     // TODO: add boundaries to prevent tetrominoes from falling off board
     public void moveDown() {
-        y++;
+        if (y < Board.getBoardHeight() - 1) {
+            y++;
+        }
     }
+
     public Shape getShape() {
         return shape;
     }
@@ -48,5 +57,10 @@ public class Tetromino {
     public int getY() {
         return y;
     }
-
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
 }

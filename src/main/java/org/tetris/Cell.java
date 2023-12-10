@@ -6,6 +6,14 @@ public class Cell {
     private boolean occupied;
     private Color color;
 
+    public Cell() {
+
+    }
+    public Cell(boolean occupied, Color color) {
+        this.occupied = occupied;
+        this.color = color;
+    }
+
     // returns true if cell occupied by tetromino
     public boolean isOccupied() {
         return occupied;

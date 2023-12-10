@@ -14,7 +14,7 @@ public class TetrominoTest {
     public void testRotatingClockwise() {
         Shape.ShapeType typeJ = Shape.ShapeType.J_SHAPE;
         Shape shapeJ = new Shape(typeJ, Color.BLUE);
-        Tetromino tetrominoJ = new Tetromino(shapeJ, 3,0, 0);
+        Tetromino tetrominoJ = new Tetromino(shapeJ, Color.BLUE, 3,0, 0);
         tetrominoJ.rotatingClockwise();
         assertArrayEquals(new boolean[][]{ // 90° rotation clockwise
                 { false, false, false},
@@ -27,7 +27,7 @@ public class TetrominoTest {
     public void testMoveLeft() {
         Shape.ShapeType typeJ = Shape.ShapeType.J_SHAPE;
         Shape shapeJ = new Shape(typeJ, Color.BLUE);
-        Tetromino tetrominoJ = new Tetromino(shapeJ, 0, 0, 0);
+        Tetromino tetrominoJ = new Tetromino(shapeJ, Color.BLUE, 0, 0, 0);
         int leftFourCells = -4;
         for (int i = 0; i > leftFourCells; i--) {
             tetrominoJ.moveLeft();
@@ -39,7 +39,7 @@ public class TetrominoTest {
     public void testMoveRight() {
         Shape.ShapeType typeJ = Shape.ShapeType.J_SHAPE;
         Shape shapeJ = new Shape(typeJ, Color.BLUE);
-        Tetromino tetrominoJ = new Tetromino(shapeJ, 0, 0, 0);
+        Tetromino tetrominoJ = new Tetromino(shapeJ, Color.BLUE, 0, 0, 0);
         int rightFourCells = 4;
         for (int i = 0; i < rightFourCells; i++) {
             tetrominoJ.moveRight();
@@ -51,7 +51,7 @@ public class TetrominoTest {
     public void testMoveDown() {
         Shape.ShapeType typeJ = Shape.ShapeType.J_SHAPE;
         Shape shapeJ = new Shape(typeJ, Color.BLUE);
-        Tetromino tetrominoJ = new Tetromino(shapeJ, 0, 0,0);
+        Tetromino tetrominoJ = new Tetromino(shapeJ, Color.BLUE, 0, 0,0);
         int downTwenty = 20;
         for (int i = 0; i < downTwenty; i++) {
             tetrominoJ.moveDown();

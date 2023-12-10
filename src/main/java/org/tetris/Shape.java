@@ -16,7 +16,7 @@ public class Shape {
     }
 
     public enum ShapeType {
-        O_SHAPE, I_SHAPE, L_SHAPE, J_SHAPE, S_SHAPE, Z_SHAPE, T_SHAPE
+        BLANK_SHAPE, O_SHAPE, I_SHAPE, L_SHAPE, J_SHAPE, S_SHAPE, Z_SHAPE, T_SHAPE
     }
 
     public static Shape createShape(ShapeType type, Color color) {
@@ -25,35 +25,44 @@ public class Shape {
 
     private void initShape(ShapeType type) {
         blocks = getBlocksForType(type);
+        dimension = blocks.length;
     }
 
     public ShapeType getType() {
         return type;
     }
 
-    private boolean[][] getBlocksForType(ShapeType type) {
+    public int getDimension() {
+        return dimension;
+    }
+    protected boolean[][] getBlocksForType(ShapeType type) {
         switch (type) {
+            case BLANK_SHAPE:
+                blocks = new boolean[][]{
+                        {false, false},
+                        {false, false}
+                };
+                break;
             case O_SHAPE:
                 blocks = new boolean[][]{
-                        { true, true},
-                        {true, true},
+                    {true, true},
+                    {true, true},
                 };
                 break;
             case I_SHAPE:
                 blocks = new boolean[][]{
-                        // 0° rotation
-                        {false, false, false, false},
-                        {false, false, false, false},
-                        {true, true, true, true},
-                        {false, false, false, false},
+
+                    {false, false, false, false},
+                    {false, false, false, false},
+                    {false, false, false, false},
+                    {true, true, true, true},
                 };
                 break;
             case L_SHAPE:
-                blocks = new boolean[][]
-                    { // 0° rotation
-                            {false, true, false},
-                            {false, true, false},
-                            {false, true, true}
+                blocks = new boolean[][]{
+                    {false, true, false},
+                    {false, true, false},
+                    {false, true, true}
                 };
                 break;
             case J_SHAPE:
@@ -156,9 +165,9 @@ public class Shape {
         @param y The y-coordinate within the cell.
         @return True if a block is present at the specified position, false otherwise.
      */
-    public boolean getBlockAt(int rotation, int x, int y) {
+    public boolean getBlockAt(int x, int y) {
         if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
-            return blocks[rotation][y * dimension + x];
+            return blocks[x][y];
         } else {
           return false;
         }
